@@ -52,7 +52,7 @@ https://localhost:5001/api/price/gbpjpy
 
 過去データ取得は以下のフォーマットで取得できます。日付はUTCで文字列でURLエンコードしてください
 
-https://localhost:5001/api/price/[通貨ペア]?time=[DateTtime]
+https://localhost:5001/api/price/[通貨ペア]?time=[DateTime]
 
 [例]
 
