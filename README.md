@@ -16,6 +16,7 @@ apsettings.jsonにOandaAPIのAccountIDとTokenを登録
   }
   
   apsettings.jsonにmongoDBの設定を登録
+  
     "MongoDB": {
     "Server": "localhost",
     "Database": "zfx",
