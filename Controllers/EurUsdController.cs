@@ -12,9 +12,12 @@ namespace zfxApi.Controllers
     public class EurUsdController : ControllerBase
     {
         [HttpGet]
-        public Price Get()
+        public Price Get([FromQuery(Name = "time")] DateTime time)
         {
-            return TradeEngine.Instance.OandaPrice[TradeEngine.EURUSD];
+            if (time == DateTime.MinValue)
+                return TradeEngine.Instance.OandaPrice[TradeEngine.EURUSD];
+
+            return TradeEngine.Instance.FindPrice(TradeEngine.EURUSD, time);
         }
     }
 }

@@ -12,9 +12,12 @@ namespace zfxApi.Controllers
     public class EurJpyController : ControllerBase
     {
         [HttpGet]
-        public Price Get()
+        public Price Get([FromQuery(Name = "time")] DateTime time)
         {
-            return TradeEngine.Instance.OandaPrice[TradeEngine.EURJPY];
+            if (time == DateTime.MinValue)
+                return TradeEngine.Instance.OandaPrice[TradeEngine.EURJPY];
+
+            return TradeEngine.Instance.FindPrice(TradeEngine.EURJPY, time);
         }
     }
 }

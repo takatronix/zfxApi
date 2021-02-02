@@ -12,9 +12,12 @@ namespace zfxApi.Controllers
     public class GbpJpyController : ControllerBase
     {
         [HttpGet]
-        public Price Get()
+        public Price Get([FromQuery(Name = "time")] DateTime time)
         {
-            return TradeEngine.Instance.OandaPrice[TradeEngine.GBPJPY];
+            if (time == DateTime.MinValue)
+                return TradeEngine.Instance.OandaPrice[TradeEngine.GBPJPY];
+
+            return TradeEngine.Instance.FindPrice(TradeEngine.GBPJPY, time);
         }
     }
 }

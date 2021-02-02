@@ -7,6 +7,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using CommonClass;
 using Microsoft.Extensions.Configuration;
+using MongoDB.Bson;
+using MongoDB.Driver;
 
 namespace zfxApi
 {
@@ -25,6 +27,30 @@ namespace zfxApi
         {
             priceQueue?.TryAdd(price);
         }
+
+
+        /// <summary>
+        /// 指定した通貨ペア、時刻の価格を取得
+        /// </summary>
+        /// <param name="pair">通貨ペア</param>
+        /// <param name="time">時刻</param>
+        /// <returns></returns>
+        public Price FindPrice(string pair,DateTime time)
+        {
+            try
+            {
+                IMongoCollection<Price> collection = mongoManager.db.GetCollection<Price>(pair);
+                var query = collection.AsQueryable();
+                return query.Where(x => x.Time <= time).OrderByDescending(t => t.Time).First();
+            }
+            catch (Exception e)
+            {
+                Log($"[MongoDB] {e.Message}");
+            }
+            return null;
+        }
+
+
 
         /////////////////////////////////////////////
         /// <summary>
@@ -67,11 +93,12 @@ namespace zfxApi
                         continue;
                     try
                     {
+                        price.Id = ObjectId.GenerateNewId().ToString();
                         mongoManager.Insert(price, price.Pair);
                     }
                     catch (Exception e)
                     {
-                        Log(e.Message);
+                        Log($"[MongoDB] {e.Message}");
                     }
                 }
                 RunFlag = false;

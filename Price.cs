@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using System;
 
 
 namespace zfxApi
@@ -6,6 +8,10 @@ namespace zfxApi
     public class Price
     {
         public Price() { }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
+
         public string Source { get; set; }
         public string Pair { get; set; }
 
@@ -41,6 +47,7 @@ namespace zfxApi
 
         public Price(Price pr)
         {
+            this.Id = ObjectId.GenerateNewId().ToString();
             this.Source = pr.Source;
             this.Ask = pr.Ask;
             this.Bid = pr.Bid;
