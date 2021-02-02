@@ -25,7 +25,8 @@ apsettings.jsonにOandaAPIのAccountIDとTokenを登録
   }
   
 ## API
-  
+サーバ設定、Port設定などはlaunchSettings.jsonで変更できます。
+
 ### 現在値リスト取得 USDJPY/EURUSD/EURJPY/GBPJPY
 https://localhost:5001/api/price
 
