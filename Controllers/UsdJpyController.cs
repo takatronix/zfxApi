@@ -14,6 +14,9 @@ namespace zfxApi.Controllers
         [HttpGet]
         public Price Get([FromQuery(Name = "time")] DateTime time)
         {
+            var remoteIpAddress = Request.HttpContext.Connection.RemoteIpAddress;
+            Console.WriteLine($"GET USDJPY from {remoteIpAddress}");
+
             if (time == DateTime.MinValue)
                 return TradeEngine.Instance.OandaPrice[TradeEngine.USDJPY];
 
