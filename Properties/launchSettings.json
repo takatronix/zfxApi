@@ -21,7 +21,7 @@
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "api/price",
-      "applicationUrl": "https://localhost:5001;http://0.0.0.0:8080"
+      "applicationUrl": ";http://0.0.0.0:8080"
     },
     "Docker": {
       "commandName": "Docker",
