@@ -19,7 +19,7 @@ namespace zfxApi
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args).ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseUrls("https://*:8081", "http://*:80");
+                    webBuilder.UseUrls("", "http://*:80");
                     webBuilder.UseStartup<Startup>();
                 });
     }
