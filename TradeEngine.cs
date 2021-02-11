@@ -29,6 +29,16 @@ namespace zfxApi
         {
             StartOandaAPIThread(config);
             StartMongoDBThread(config);
+            StartDiscordBot(config);
+        }
+
+        DiscordBot discord = null;
+        public void StartDiscordBot(IConfiguration config)
+        {
+            var token = config["DiscordBot:Token"];
+            var channel = config.GetValue<ulong>("DiscordBot:Channel");
+            discord = new DiscordBot(token, channel);
+            discord.Start();
         }
 
         private void OnPriceChanged(Price price)
