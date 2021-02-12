@@ -31,6 +31,10 @@ namespace zfxApi
             StartMongoDBThread(config);
             StartDiscordBot(config);
         }
+        public void Notify(string text)
+        {
+            discord?.SendMessage(text);
+        }
 
         DiscordBot discord = null;
         public void StartDiscordBot(IConfiguration config)

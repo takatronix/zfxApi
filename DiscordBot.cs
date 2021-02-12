@@ -1,4 +1,5 @@
 ﻿using Discord.WebSocket;
+using System;
 using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,6 +26,11 @@ namespace zfxApi
 
         public async void Start()
         {
+            if (string.IsNullOrEmpty(Token))
+            {
+                Console.WriteLine("DiscordBot: Token is empty.shutting down..");
+                return;
+            }
             //      別スレッドで処理
             await Task.Run(() =>
             {
@@ -67,10 +73,8 @@ namespace zfxApi
                 return;
             }
 
-
             if (channel == null)
                 channel = client.GetChannel(ChannelID) as SocketTextChannel;
-
             channel?.SendMessageAsync(text);
         }
 
@@ -79,13 +83,26 @@ namespace zfxApi
             if (arg.Author.IsBot)
                 return;
 
-            await arg.Channel.SendMessageAsync(arg.Content);
+            if(arg.Content.Equals("price"))
+            {
+                var priceDic = TradeEngine.Instance.OandaPrice;
+                foreach(var key in priceDic.Keys)
+                {
+                    var price = priceDic[key];
+                    channel?.SendMessageAsync(price.GetInformation());
+                }
+            }
+            
+ //           await arg.Channel.SendMessageAsync(arg.Content);
         }
 
         private async Task OnClientReady()
         {
-            channel = client.GetChannel(ChannelID) as SocketTextChannel;
-            SendMessageAsync("Discord Bot ready.");
+            if(channel == null)
+            {
+                channel = client.GetChannel(ChannelID) as SocketTextChannel;
+                SendMessageAsync("[zfxApi] 起動しました");
+            }
         }
     }
 }

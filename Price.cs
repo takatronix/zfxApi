@@ -62,5 +62,10 @@ namespace zfxApi
             return true;
         }
 
+        public string GetInformation()
+        {
+            return $"{Pair} Bid:{Bid} Ask:{Ask} Time:{Time}";
+        }
+
     }
 }
