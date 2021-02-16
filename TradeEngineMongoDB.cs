@@ -66,7 +66,7 @@ namespace zfxApi
             var password = config["MongoDB:Password"];
             var port = config.GetValue<int>("MongoDB:Port");
  
-            if(server == null || user == null || password == null)
+            if(string.IsNullOrEmpty(server))
             {
                 Log("[MongoDB] no server settings.");
                 RunFlag = false;

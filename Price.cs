@@ -64,7 +64,12 @@ namespace zfxApi
 
         public string GetInformation()
         {
-            return $"{Pair} Bid:{Bid} Ask:{Ask} Time:{Time}";
+            return $"{Pair} {GetMed()} /Bid:{Bid} Ask:{Ask} Time:{Time}";
+        }
+        public double GetMed()
+        {
+            var med =  (Ask + Bid) / 2;
+            return Math.Truncate(med * 1000.0) / 1000.0;
         }
 
     }

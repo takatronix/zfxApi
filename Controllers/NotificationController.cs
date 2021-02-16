@@ -13,11 +13,12 @@ using System.Threading.Tasks;
 
 namespace zfxApi.Controllers
 {
-    public class ZfxNotification
+    public class ZfxMessage
     {
-        public string Key { get; set; }
-        public string Value { get; set; }
+        public string Message { get; set; }
+        //  public string Value { get; set; }
     }
+
 
     [Route("api/[controller]")]
     [ApiController]
@@ -27,16 +28,16 @@ namespace zfxApi.Controllers
 
 
         [HttpPost]
-        public void Post([FromBody] ZfxNotification req)
+        public void Post([FromBody] ZfxMessage req)
         {
-            Debug.WriteLine(req.Key);
+            Debug.WriteLine(req.Message);
 
-            Debug.WriteLine(req.Value);
+            TradeEngine.Instance.SendToDiscord(req.Message);
+            //Debug.WriteLine(req.Value);
             // return Request.CreateResponse(HttpStatusCode.Created, "");
 
         }
 
-
-
     }
+
 }

@@ -36,13 +36,17 @@ namespace zfxApi
             discord?.SendMessage(text);
         }
 
-        DiscordBot discord = null;
+         DiscordBot discord = null;
         public void StartDiscordBot(IConfiguration config)
         {
             var token = config["DiscordBot:Token"];
             var channel = config.GetValue<ulong>("DiscordBot:Channel");
             discord = new DiscordBot(token, channel);
             discord.Start();
+        }
+        public  void SendToDiscord(string message)
+        {
+            discord?.SendMessage(message);
         }
 
         private void OnPriceChanged(Price price)
